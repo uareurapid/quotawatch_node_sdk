@@ -1,0 +1,31 @@
+{
+  "name": "quotawatch",
+  "version": "0.0.1",
+  "description": "API usage monitoring SDK for Node.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@quotawatch/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "tsup": "^8.0.0",
+    "@types/node": "^20.0.0"
+  },
+  "keywords": ["api", "rate-limit", "monitoring", "sdk"],
+  "license": "MIT"
+}
