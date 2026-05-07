@@ -1,5 +1,6 @@
 import type { QuotaWatchConfig } from './types.js';
 import type { ApiCallEvent } from '@quotawatch/shared';
+import { patchFetch } from './interceptors/fetchInterceptor.js';
 
 const DEFAULT_INGEST_URL = 'https://ingest.quotawatch.io';
 const DEFAULT_FLUSH_INTERVAL_MS = 5000;
@@ -22,13 +23,12 @@ export class QuotaWatch {
       ...config,
     };
 
-    // Build base URL → API name lookup
     for (const api of config.apis) {
       this.baseUrlMap.set(api.baseUrl.replace(/\/$/, ''), api.name);
     }
 
     this.startFlushTimer();
-    this.patchGlobalFetch();
+    patchFetch(this);
   }
 
   static init(config: QuotaWatchConfig): QuotaWatch {
@@ -44,27 +44,29 @@ export class QuotaWatch {
     return QuotaWatch.instance;
   }
 
-  /** @internal */
-  private patchGlobalFetch(): void {
-    // TODO: implement fetch monkey-patching
-    // Will wrap global fetch to intercept outgoing requests
+  resolveApiName(url: string): string | null {
+    for (const [baseUrl, name] of this.baseUrlMap) {
+      if (url.startsWith(baseUrl)) return name;
+    }
+    return null;
   }
 
-  /** @internal */
+  getEnvironment(): string {
+    return this.config.environment;
+  }
+
+  record(event: ApiCallEvent): void {
+    if (this.buffer.length >= this.config.bufferSize) {
+      this.buffer.shift();
+    }
+    this.buffer.push(event);
+  }
+
   private startFlushTimer(): void {
     this.flushTimer = setInterval(() => {
       void this.flush();
     }, this.config.flushIntervalMs);
-    // Don't block Node.js exit
     this.flushTimer.unref?.();
-  }
-
-  /** @internal */
-  record(event: ApiCallEvent): void {
-    if (this.buffer.length >= this.config.bufferSize) {
-      this.buffer.shift(); // drop oldest
-    }
-    this.buffer.push(event);
   }
 
   async flush(): Promise<void> {
