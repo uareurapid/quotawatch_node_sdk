@@ -11,21 +11,31 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@quotawatch/shared": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0",
     "tsup": "^8.0.0",
-    "@types/node": "^20.0.0"
+    "typescript": "^5.4.0",
+    "vitest": "^4.1.6"
   },
-  "keywords": ["api", "rate-limit", "monitoring", "sdk"],
+  "keywords": [
+    "api",
+    "rate-limit",
+    "monitoring",
+    "sdk"
+  ],
   "license": "MIT"
 }
