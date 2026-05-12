@@ -2,7 +2,7 @@ import type { QuotaWatchConfig } from './types.js';
 import type { ApiCallEvent } from '@quotawatch/shared';
 import { patchFetch } from './interceptors/fetchInterceptor.js';
 
-const DEFAULT_INGEST_URL = 'https://ingest.quotawatch.io';
+const DEFAULT_INGEST_URL = 'https://ingest.quotawatch.app';
 const DEFAULT_FLUSH_INTERVAL_MS = 5000;
 const DEFAULT_BUFFER_SIZE = 500;
 

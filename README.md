@@ -1,6 +1,6 @@
 # quotawatch
 
-Node.js / TypeScript SDK for [QuotaWatch](https://quotawatch.io) — passive API usage monitoring.
+Node.js / TypeScript SDK for [QuotaWatch](https://quotawatch.app) — passive API usage monitoring.
 
 **Never get surprised by a rate limit again.**
 
@@ -17,7 +17,7 @@ import { QuotaWatch } from 'quotawatch';
 
 const qw = QuotaWatch.init({
   apiKey: 'qw_live_your_key_here',
-  ingestUrl: 'https://ingest.quotawatch.io', // http://localhost:3001 for local dev
+  ingestUrl: 'https://ingest.quotawatch.app', // http://localhost:3001 for local dev
   environment: 'production',
   apis: [
     {
@@ -102,7 +102,7 @@ No request or response bodies are ever captured. Only: URL path, method, status,
 
 ## Documentation
 
-Full docs at [quotawatch.io/docs/node](https://quotawatch.io/docs/node)
+Full docs at [quotawatch.app/docs/node](https://quotawatch.app/docs/node)
 
 ## License
 
