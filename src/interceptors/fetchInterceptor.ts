@@ -4,6 +4,7 @@ const RATE_LIMIT_HEADER_PREFIXES = [
   'x-ratelimit-',
   'ratelimit-',
   'x-rate-limit-',
+  'anthropic-ratelimit-',
 ];
 
 function extractRateLimitHeaders(headers: Headers): Record<string, string> {
