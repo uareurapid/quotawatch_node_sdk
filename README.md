@@ -23,7 +23,7 @@ const qw = QuotaWatch.init({
     {
       name: 'OpenAI',
       baseUrl: 'https://api.openai.com',
-      limits: { requestsPerMinute: 60, requestsPerDay: 10_000 },
+      limits: { requestsPerMinute: 60, requestsPerDay: 10_000, tokensPerDay: 1_000_000 },
     },
     {
       name: 'Stripe',
